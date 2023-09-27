@@ -11,7 +11,7 @@ namespace Op_WebAPI.Models
         public string AttractionName { get; set; } = string.Empty;
         [Required]
         [MaxLength(50)]
-        public string Category { get; set; }
+        public string? Category { get; set; }
         [Required]
         [MaxLength(200)]
         public string Description { get; set; } = string.Empty;
