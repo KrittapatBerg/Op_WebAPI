@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Op_WebAPI.Models
 {
@@ -23,6 +24,7 @@ namespace Op_WebAPI.Models
         public string Country { get; set; } = string.Empty;
 
         public int AttractionId { get; set; }
-        //public csAttraction Attraction { get; set; }
+        [JsonIgnore]
+        public csAttraction Attraction { get; set; }
     }
 }

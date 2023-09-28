@@ -15,6 +15,7 @@ namespace Op_WebAPI.Models
         [Required]
         [MaxLength(200)]
         public string Description { get; set; } = string.Empty;
+        public virtual csAddress? Address { get; set; }
 
         //public List<csReview> Review { get; set; } = null;     //One Attraction has a list of Review 0-20 reviews
         //public List<csRating> Rating { get; set; } = null;     //One Attraction has a list of Rating 0-20 ratings
