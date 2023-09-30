@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
-using Models;
+using Op_WebAPI.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -23,15 +23,15 @@ namespace Op_WebAPI.Models
 
         //public List<csRating> Ratings { get; set;} 
 
-        public csUser Seed(csSeedGenerator sGen)
-        {
-            var user1 = new csUser
-            {
-                UserName = sGen.FirstName,
-                UserEmail = sGen.Email(),
+        //public csUser Seed(csSeedGenerator sGen)
+        //{
+        //    var user1 = new csUser
+        //    {
+        //        UserName = sGen.FirstName,
+        //        UserEmail = sGen.Email(),
                
-            };
-            return user1;
-        }
+        //    };
+        //    return user1;
+        //}
     }
 }

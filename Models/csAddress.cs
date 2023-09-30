@@ -1,4 +1,4 @@
-﻿using Models;
+﻿using Op_WebAPI.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -26,20 +26,21 @@ namespace Op_WebAPI.Models
 
         public int AttractionId { get; set; }
         [JsonIgnore]
-        public csAttraction Attraction { get; set; }
+        public csAttraction? Attraction { get; set; }
 
-        public csAddress Seed(csSeedGenerator sGen)
-        {
-            var test = new csAddress()
-            {
-                AddressId = 5,
-                StreetName = sGen.PetName,
-                City = sGen.Country,
-                Zipcode = sGen.Next(10100, 90900),
-                Country = sGen.Country,
-                AttractionId = 4
-            };
-            return test;
-        }
+        
+        //public csAddress TrySeed(DataSeeder seeder)
+        //{
+        //    var home = new csAddress()
+        //    {
+        //        AddressId = 5,
+        //        StreetName = seeder.seedStreet,
+        //        City = seeder.seedCity,
+        //        Zipcode = seeder.zipcode,
+        //        Country = seeder.seedCountry,
+        //        AttractionId = 5
+        //    };
+        //    return home;
+        //}
     }
 }

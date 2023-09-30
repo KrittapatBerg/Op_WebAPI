@@ -12,12 +12,10 @@ namespace Op_WebAPI.Controllers
     public class AttractionController : ControllerBase
     {
         private readonly DataContext _context;
-        private readonly DataSeeder _seeder;
-        public AttractionController(DataContext context, DataSeeder seeder)
+        
+        public AttractionController(DataContext context)
         {
             _context = context;
-            _seeder = seeder;
-        }
 
         //GET: api/ Attractions
         [HttpGet]
@@ -80,5 +78,6 @@ namespace Op_WebAPI.Controllers
 
             return Ok(citii);
         }
+
     }
 }

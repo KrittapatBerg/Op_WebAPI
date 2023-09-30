@@ -20,5 +20,15 @@ namespace Op_WebAPI.Models
         public List<csReview>? Review { get; set; }  //new List<csReview>();     //One Attraction has a list of Review 0-20 reviews
         //public List<csRating> Rating { get; set; } = null;     //One Attraction has a list of Rating 0-20 ratings   VG level
 
+        //public csAttraction TrySeed(DataSeeder seeder)
+        //{
+        //    var tourist = new csAttraction
+        //    {
+        //        AttractionName = seeder.SeedAttract,
+        //        Category = seeder.RandomCat,
+        //        Description = seeder.RandomDescription
+        //    };
+        //    return tourist;
+        //}
     }
 }
