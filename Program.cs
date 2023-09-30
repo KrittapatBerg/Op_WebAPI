@@ -14,7 +14,7 @@ namespace Op_WebAPI
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddTransient<SeedGenerator>(); //seeding
+            builder.Services.AddTransient<Seed>(); //seeding
             
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,7 +34,7 @@ namespace Op_WebAPI
                 using (var scope = app.Services.CreateScope())
                 {
                     var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-                    SeedGenerator.SeedData(dataContext);
+                    Seed.SeedData(dataContext);
                 }
             }
 

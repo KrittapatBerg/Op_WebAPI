@@ -25,17 +25,35 @@ namespace Op_WebAPI.Controllers
             return await _context.Users.ToListAsync();
         }
 
+        //GET : api/ User/ Seed     after implement with interface or service  
+        //[HttpGet()]
+        //[ActionName("Seed")]
+        //[ProducesResponseType(200, Type = typeof(int))]
+        //[ProducesResponseType(400, Type = typeof(string))]
+        //public async Task<IActionResult> Seed(string count)
+        //{
+        //    try
+        //    {
+        //        int _count = int.Parse(count);
+                
+        //        int c1 = await _context.
+        //    }
+        //}
+
         //GET : api/ User/ id
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         public async Task<ActionResult<csUser>> GetUser(int id)
         {
             if (_context.Users == null) return NotFound();
+            
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.Include(x => x.Reviews).Where(x => x.UserId == id).ToListAsync();
+
             if (user == null) return NotFound();
 
-            return user; 
+            
+            return Ok(user); 
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Op_WebAPI.Data;
 using Op_WebAPI.Models;
+using System.Linq;
 
 namespace Op_WebAPI.Controllers
 {
@@ -11,9 +12,11 @@ namespace Op_WebAPI.Controllers
     public class AttractionController : ControllerBase
     {
         private readonly DataContext _context;
-        public AttractionController(DataContext context)
+        private readonly DataSeeder _seeder;
+        public AttractionController(DataContext context, DataSeeder seeder)
         {
             _context = context;
+            _seeder = seeder;
         }
 
         //GET: api/ Attractions
@@ -23,16 +26,20 @@ namespace Op_WebAPI.Controllers
         {
             if (_context.SightSeeings == null)  return NotFound();
 
-            return await _context.SightSeeings.ToListAsync(); 
+            var attractions = await _context.SightSeeings.Include(x => x.Address).ToListAsync();
+
+            return attractions;
         }
+
 
         //GET : api/ Attraction/ id 
         [HttpGet("{id}")]
-        public async Task<ActionResult<csAttraction>> GetAttraction(int id)
+        public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttraction(int id)
         {
             if (_context.SightSeeings == null) return NotFound();
 
-            var attraction = await _context.SightSeeings.FindAsync(id);
+            var attraction = await _context.SightSeeings.Include(x => x.Review).Include(x => x.Address).Where(x => x.AttractionId == id).ToListAsync();
+
             if (attraction == null) return NotFound(); 
             
             return attraction;
@@ -63,24 +70,15 @@ namespace Op_WebAPI.Controllers
         }
 
         //GET : api/ Attraction/ city
-        [HttpGet("{}")]
-
-
-
-        //PUT : api/ Attraction/ id 
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> PutAttraction(int id, csAttraction attraction)
+        [HttpGet("city/{city}")]
+        public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractionByCity(string city)
         {
-            if(id != attraction.AttractionId) return BadRequest();
-            
-            _context.Entry(attraction).State = EntityState.Modified;
+            if (_context.SightSeeings == null) return NotFound();
 
-            try { await _context.SaveChangesAsync(); }
-            catch (DbUpdateConcurrencyException) 
-            {
-                if (!AttractionExists(id)) return NotFound();
-            }
-            return ;
-        }*/
+            var citii = await _context.SightSeeings.Include(c => c.Address).Where(c => c.Address.City == city).ToListAsync();
+            if (citii == null) return NotFound();
+
+            return Ok(citii);
+        }
     }
 }

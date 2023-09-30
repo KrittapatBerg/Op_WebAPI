@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
+using System.Text.Json.Serialization;
 
 namespace Op_WebAPI.Models
 {
@@ -9,9 +11,15 @@ namespace Op_WebAPI.Models
 
         [MaxLength(200)]
         public string Review { get; set; } = string.Empty;
-        public csUser User { get; set; }
+       
+       
+        [JsonIgnore]
+        public csAttraction Attraction { get; set; } = null;
+        public int AttractionId { get; set; }
+
+        
         public int UserId { get; set; }
-        public csAttraction Attraction { get; set; }
-        public int AttractionId { get; set; } 
+        [JsonIgnore]
+        public csUser User { get; set; } = null!;
     }
 }

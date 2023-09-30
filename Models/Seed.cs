@@ -1,11 +1,13 @@
-﻿using Op_WebAPI.Data;
+﻿using Models;
+using Op_WebAPI.Data;
 
 namespace Op_WebAPI.Models
 {
-    public class SeedGenerator //: Random  TO DO : random 
+    public class Seed //: Random  TO DO : random 
     {
         public static void SeedData(DataContext context)
         {
+            var testSeed = new DataSeeder(context);
             if (!context.SightSeeings.Any())
             {
 
@@ -36,6 +38,8 @@ namespace Op_WebAPI.Models
                 {
                     new csAddress { StreetName = "Flower Rd.", City = "Middle Korea", Zipcode = 20165, Country = "South Sea", AttractionId = 1 },
                     new csAddress { StreetName = "Snow street", City = "Westeros", Zipcode = 60521, Country = "North Sea", AttractionId = 2}
+                    //new csAddress = testSeed.SeedDatabase(context)
+
                 };
                 context.AddRange(addresses);
                 context.SaveChanges();
@@ -43,6 +47,7 @@ namespace Op_WebAPI.Models
 
             if (!context.Users.Any())
             {
+                //var test2 = new SeedUser(); { }
                 var users = new List<csUser>
                 {
                     new csUser { UserName = "Jon86", UserEmail = "jon.86@snow.com" },   //user1
