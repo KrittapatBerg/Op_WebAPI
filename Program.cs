@@ -15,8 +15,7 @@ namespace Op_WebAPI
 
             builder.Services.AddControllers();
             builder.Services.AddTransient<Seed>(); //seeding
-            //builder.Services.AddTransient<DataSeeder>(); 
-
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

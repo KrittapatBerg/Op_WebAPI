@@ -12,13 +12,11 @@ namespace Op_WebAPI.Models
         [MaxLength(200)]
         public string Review { get; set; } = string.Empty;
        
-       
         [JsonIgnore]
         public csAttraction Attraction { get; set; } = null;
         public int AttractionId { get; set; }
-
-        
         public int UserId { get; set; }
+
         [JsonIgnore]
         public csUser User { get; set; } = null!;
     }

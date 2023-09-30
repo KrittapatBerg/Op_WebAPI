@@ -28,19 +28,5 @@ namespace Op_WebAPI.Models
         [JsonIgnore]
         public csAttraction? Attraction { get; set; }
 
-        
-        //public csAddress TrySeed(DataSeeder seeder)
-        //{
-        //    var home = new csAddress()
-        //    {
-        //        AddressId = 5,
-        //        StreetName = seeder.seedStreet,
-        //        City = seeder.seedCity,
-        //        Zipcode = seeder.zipcode,
-        //        Country = seeder.seedCountry,
-        //        AttractionId = 5
-        //    };
-        //    return home;
-        //}
     }
 }

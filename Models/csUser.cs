@@ -20,18 +20,5 @@ namespace Op_WebAPI.Models
       
         public List<csReview> Reviews { get; set; } = new List<csReview>();
 
-
-        //public List<csRating> Ratings { get; set;} 
-
-        //public csUser Seed(csSeedGenerator sGen)
-        //{
-        //    var user1 = new csUser
-        //    {
-        //        UserName = sGen.FirstName,
-        //        UserEmail = sGen.Email(),
-               
-        //    };
-        //    return user1;
-        //}
     }
 }
