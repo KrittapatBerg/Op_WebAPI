@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Op_WebAPI.Models;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Op_WebAPI.Service
 {
@@ -20,7 +21,7 @@ namespace Op_WebAPI.Service
                     AttractionName = RandomSeedFactory.GenerateAttraction(),
                     Category = RandomSeedFactory.GenerateCategory(),
                     Description = RandomSeedFactory.GenerateDescription(),
-                    //Address = we do it later
+                    //Address = do it later
                 };
                 attractionList.Add(result);
             }
@@ -29,16 +30,19 @@ namespace Op_WebAPI.Service
         private static string GenerateAttraction()
         {
 
-            string[] _attractionName = "Sunshine Bay, Raiya Beach, Lego Land, Aquarium, Sea World, Niagara Fall, Redwood, Fancy Raw".Split(", ");
-            string[] _category = "Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel".Split(", ");
+            string[] _attractionName = ("Sunshine, Bay, Raiya Beach, Lego, Land, Aquarium, Sea, World, Niagara, Fall, Redwood, Fancy Raw, " +
+                "Dragon, Rainbow, Miyamoto, Aspen, Highland, Dinausaur, Frozen, Beauty, Arrival, AutoBahn, Bonsai, Fuji, " +
+                "History, Unicorn, Dalai, Youth, Mystery, Downton, Jumanji, Mars, Planet, Natural, Plastic, Jam, Space, Loiter, " +
+                "Toy, Story, Sunset, Bangle, Beagle, Beatles, Lady, Statue, Curve, Science, Discovery, Animal, Wonder, Pyramid ").Split(", ");
 
-            string ranAttract = _attractionName[random.Next(_attractionName.Length)];
-            string seedAttract = ranAttract + random.Next(_category.Length);
+            string[] _category = "Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Mountain, Monument, Zoo, Aquarium, Bar".Split(", ");
+
+            string seedAttract = _attractionName[random.Next(0, _attractionName.Length)] + " " + _attractionName[random.Next(0, _category.Length)];
             return seedAttract;
         }
         private static string GenerateCategory()
         {
-            string[] _category = "Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Zoo, Aquarium, Bar, Amusement".Split(", ");
+            string[] _category = "Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Zoo, Aquarium, Bar, Amusement, Mountain".Split(", ");
             string ranCat = _category[random.Next(_category.Length)];
             return ranCat;
         }
@@ -82,8 +86,7 @@ namespace Op_WebAPI.Service
         private static string GenerateStreet()
         {
             string[] _streetName = "Flower Rd, Moon street, Ion Rd, Riverflow, st.Septon, Sun n Star street, Dark horse Rd, Rice field, Golden street, Jade Rd, st.Crow, Hyde Rd ".Split(", ");
-            string randomStreet = _streetName[random.Next(_streetName.Length)];
-            string seedStreet = randomStreet + random.Next(0, 909);
+            string seedStreet = _streetName[random.Next(0, _streetName.Length)] + " " + random.Next(0, 909);
             return seedStreet;
         }
         private static string GenerateCity()
@@ -104,9 +107,7 @@ namespace Op_WebAPI.Service
             {
                 "Tower, Korea, King's Landing, Casterly Rock, Sea, Winterfell, Highgarden, Sea, Dothraki, Carolina, Wakanda, Cairo, Birmingham, Downton Abbey, Wimbledon, Highland Gard, Asgard, Liberty "
             };
-            string ranRegion = _region[random.Next(_region.Length)];
-            string ranCountry = _country[random.Next(_country.Length)];
-            string seedCountry = ranRegion + " " + ranCountry;
+            string seedCountry = _region[random.Next(0, _region.Length)] + " " + _country[random.Next(0, _region.Length)];
             return seedCountry;
         }
         #endregion
@@ -132,10 +133,7 @@ namespace Op_WebAPI.Service
         private static string GenerateUserName()
         {
             string[] _userName = "Joff, Jeff, Jim, Pam, Dwight, Steve, Stanley, Kitty, Jon, Tuna, Paul, Roger, Louis, Bryan, David, Rebecca, Clerance, Edward, Catniss".Split(", ");
-            string randomName = _userName[random.Next(_userName.Length)];
-            string uniqueUserName = randomName + random.Next(1, 51);
-              //to ensure every name is unique 
-
+            string uniqueUserName = _userName[random.Next(0,_userName.Length)] + random.Next(1, 51);
             return uniqueUserName;
         }
         private static string GenerateEmail()
@@ -177,7 +175,8 @@ namespace Op_WebAPI.Service
                 "nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ",
                 "officia deserunt mollit anim id est laborum."
             };
-            string ranReview = _review[random.Next(_review.Length)];
+            string ranReview = _review[random.Next(0, _review.Length)];
+            
             return ranReview;
         }
         #endregion
