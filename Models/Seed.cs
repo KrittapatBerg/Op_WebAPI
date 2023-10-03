@@ -4,9 +4,9 @@ using Op_WebAPI.Service;
 
 namespace Op_WebAPI.Models
 {
-    public class Seed //: Random  TO DO : random 
+    public class Seed
     {
-        private static int attractionAmount = 200;
+        private static int attractionAmount = 5;
         private static int addressAmount = 100;
         private static int userAmount = 50;
         private static int reviewAmount = 100;
@@ -16,12 +16,17 @@ namespace Op_WebAPI.Models
         {
             try
             {
-
-                if (!context.SightSeeings.Any())
+                //skapa en code som lägg in address och alla detaljer i varje attraction som är skapas 
+                if (context.SightSeeings.Any())
                 {
 
                     // Seed data
                     var attractions = RandomSeedFactory.RandomAttraction(attractionAmount);
+                    var addresss = RandomSeedFactory.RandomAddress(attractionAmount);
+                    for (int i = 0; i < attractions.Count; i++)
+                    {
+                        attractions[i].Address = addresss[i];
+                    }
 
                     /*
                     {
@@ -44,7 +49,7 @@ namespace Op_WebAPI.Models
 
 
 
-                if (!context.Addresses.Any())
+                if (context.Addresses.Any())
                 {
                     var addresses = RandomSeedFactory.RandomAddress(addressAmount);
 
@@ -52,8 +57,9 @@ namespace Op_WebAPI.Models
                     context.SaveChanges();
                 }
 
-                if (!context.Users.Any())
+                if (context.Users.Any())
                 {
+                    //skapa en remove seed som ta bort seed varje gång innan seed kan seeda igen
 
                     var users = RandomSeedFactory.RandomUser(userAmount);
 
@@ -66,7 +72,7 @@ namespace Op_WebAPI.Models
                     context.SaveChanges();
                 }
 
-                if (!context.Reviews.Any())
+                if (context.Reviews.Any())
                 {
                     var reviews = RandomSeedFactory.RandomReview(reviewAmount);
 
@@ -78,7 +84,7 @@ namespace Op_WebAPI.Models
                     context.SaveChanges();
                 }
 
-                if (!context.Ratings.Any())
+                if (context.Ratings.Any())
                 {
                     var ratings = RandomSeedFactory.RandomRating(ratingAmount);
 

@@ -7,21 +7,48 @@ using System.Linq;
 
 namespace Op_WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AttractionController : ControllerBase
     {
         private readonly DataContext _context;
+       
         public AttractionController(DataContext context)
         {
             _context = context;
+            var seed = new Seed();
+
         }
 
+        //GET : api/ Attractions/ Seed 
+        //[HttpGet]
+        //[ActionName("Seed")]
+        //[ProducesResponseType(200, Type = typeof(int))]
+        //[ProducesResponseType(400, Type = typeof(string))]
+        //public async Task<IActionResult> Seed(string count)
+        //{
+        //    try
+        //    {
+        //        int _count = int.Parse(count);
+
+        //       // int cnt = await _context.;
+        //        return Ok(cnt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+
+        //}
         //GET : api/ Attractions
         [HttpGet]
+        [ActionName("Read")]
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractions()
         {
+            
+            Seed.SeedData(_context);
+
             if (_context.SightSeeings == null) return NotFound();
 
             var attractions = await _context.SightSeeings.Include(x => x.Address).ToListAsync();

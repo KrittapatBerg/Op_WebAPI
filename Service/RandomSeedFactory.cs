@@ -16,6 +16,7 @@ namespace Op_WebAPI.Service
 
             for (int i = 0; i < amount; i++)
             {
+               
                 var result = new csAttraction
                 {
                     AttractionName = RandomSeedFactory.GenerateAttraction(),
@@ -42,9 +43,9 @@ namespace Op_WebAPI.Service
         }
         private static string GenerateCategory()
         {
-            string[] _category = "Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Zoo, Aquarium, Bar, Amusement, Mountain".Split(", ");
-            string ranCat = _category[random.Next(_category.Length)];
-            return ranCat;
+            string[] _category = ("Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Zoo, Aquarium, Bar, Amusement, Mountain").Split(", ");
+            string ranCat = _category[random.Next(0, _category.Length)];
+            return ranCat; 
         }
         private static string GenerateDescription()
         {
@@ -75,8 +76,8 @@ namespace Op_WebAPI.Service
                     StreetName = RandomSeedFactory.GenerateStreet(),
                     City = RandomSeedFactory.GenerateCity(),
                     Zipcode = RandomSeedFactory.GenerateZipcode(),
-                    Country = RandomSeedFactory.GenerateCountry()
-                    //Attraction, have to connect them 
+                    Country = RandomSeedFactory.GenerateCountry(),
+                    AttractionId = i + 1 
                 };
                 addressList.Add(result);
             }
@@ -103,10 +104,8 @@ namespace Op_WebAPI.Service
         private static string GenerateCountry()
         {
             string[] _region = "High, Middle, South, Central, North, Ground, Gold, Black, Green, West, East".Split(", ");
-            string[] _country =
-            {
-                "Tower, Korea, King's Landing, Casterly Rock, Sea, Winterfell, Highgarden, Sea, Dothraki, Carolina, Wakanda, Cairo, Birmingham, Downton Abbey, Wimbledon, Highland Gard, Asgard, Liberty "
-            };
+            string[] _country = ("Tower, Korea, King's Landing, Casterly Rock, Sea, Winterfell, Highgarden, Sea, Dothraki, Carolina, Wakanda, Cairo, Birmingham, Downton Abbey, Wimbledon, Highland Gard, Asgard, Liberty").Split(", ");
+            
             string seedCountry = _region[random.Next(0, _region.Length)] + " " + _country[random.Next(0, _region.Length)];
             return seedCountry;
         }
