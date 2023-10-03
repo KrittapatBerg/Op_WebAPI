@@ -1,7 +1,8 @@
 
+using Configuration;
 using Microsoft.EntityFrameworkCore;
 using Op_WebAPI.Data;
-using Op_WebAPI.Models;
+using Op_WebAPI.Service;
 
 namespace Op_WebAPI
 {
@@ -14,13 +15,15 @@ namespace Op_WebAPI
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddTransient<Seed>(); //seeding
+            builder.Services.AddScoped<Seed>(); //seeding
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            var cs = csAppConfig.DbLoginDetails("sysadmin").DbConnectionString;
+            builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(cs));
+
 
             var app = builder.Build();
 
@@ -29,13 +32,6 @@ namespace Op_WebAPI
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-
-                using (var scope = app.Services.CreateScope())
-                {
-                    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-                    Seed.SeedData(dataContext);
-                    
-                }
             }
 
             app.UseHttpsRedirection();

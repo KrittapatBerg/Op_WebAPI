@@ -22,7 +22,7 @@ namespace Op_WebAPI.Service
                     AttractionName = RandomSeedFactory.GenerateAttraction(),
                     Category = RandomSeedFactory.GenerateCategory(),
                     Description = RandomSeedFactory.GenerateDescription(),
-                    //Address = do it later
+                    
                 };
                 attractionList.Add(result);
             }
@@ -36,7 +36,7 @@ namespace Op_WebAPI.Service
                 "History, Unicorn, Dalai, Youth, Mystery, Downton, Jumanji, Mars, Planet, Natural, Plastic, Jam, Space, Loiter, " +
                 "Toy, Story, Sunset, Bangle, Beagle, Beatles, Lady, Statue, Curve, Science, Discovery, Animal, Wonder, Pyramid ").Split(", ");
 
-            string[] _category = "Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Mountain, Monument, Zoo, Aquarium, Bar".Split(", ");
+            string[] _category = ("Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Mountain, Monument, Zoo, Aquarium, Bar").Split(", ");
 
             string seedAttract = _attractionName[random.Next(0, _attractionName.Length)] + " " + _attractionName[random.Next(0, _category.Length)];
             return seedAttract;
@@ -86,13 +86,13 @@ namespace Op_WebAPI.Service
         }
         private static string GenerateStreet()
         {
-            string[] _streetName = "Flower Rd, Moon street, Ion Rd, Riverflow, st.Septon, Sun n Star street, Dark horse Rd, Rice field, Golden street, Jade Rd, st.Crow, Hyde Rd ".Split(", ");
+            string[] _streetName = ("Flower Rd, Moon street, Ion Rd, Riverflow, st.Septon, Sun n Star street, Dark horse Rd, Rice field, Golden street, Jade Rd, st.Crow, Hyde Rd ").Split(", ");
             string seedStreet = _streetName[random.Next(0, _streetName.Length)] + " " + random.Next(0, 909);
             return seedStreet;
         }
         private static string GenerateCity()
         {
-            string[] _city = "New Sea, Black Sea, Dark Sea, Bright Sea, Star Sea, Old Sea, Blue Sea, North Sea, Iron Sea, Jade Sea, Golden Sea, Glow Sea, Glitten Sea".Split(", ");
+            string[] _city = ("New Sea, Black Sea, Dark Sea, Bright Sea, Star Sea, Old Sea, Blue Sea, North Sea, Iron Sea, Jade Sea, Golden Sea, Glow Sea, Glitten Sea").Split(", ");
             string seedCity = _city[random.Next(_city.Length)];
             return seedCity;
         }
@@ -103,7 +103,7 @@ namespace Op_WebAPI.Service
         }
         private static string GenerateCountry()
         {
-            string[] _region = "High, Middle, South, Central, North, Ground, Gold, Black, Green, West, East".Split(", ");
+            string[] _region = ("High, Middle, South, Central, North, Ground, Gold, Black, Green, West, East").Split(", ");
             string[] _country = ("Tower, Korea, King's Landing, Casterly Rock, Sea, Winterfell, Highgarden, Sea, Dothraki, Carolina, Wakanda, Cairo, Birmingham, Downton Abbey, Wimbledon, Highland Gard, Asgard, Liberty").Split(", ");
             
             string seedCountry = _region[random.Next(0, _region.Length)] + " " + _country[random.Next(0, _region.Length)];
@@ -179,28 +179,5 @@ namespace Op_WebAPI.Service
             return ranReview;
         }
         #endregion
-
-        #region Rating Generator
-        public static List<csRating> RandomRating(int amount)
-        {
-            var ratingList = new List<csRating>();
-
-            for(int i = 0;i < amount; i++)
-            {
-                var result = new csRating
-                {
-                    Rating = RandomSeedFactory.GenerateRating()
-                    //connect to User and Attraction later
-                }; 
-                ratingList.Add(result);
-            }
-            return ratingList;
-        }
-        private static int GenerateRating()
-        {
-            int rating = random.Next(1, 11);
-            return rating;
-        }
-        #endregion 
     }
 }

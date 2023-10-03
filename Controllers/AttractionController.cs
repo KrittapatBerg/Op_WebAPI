@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Op_WebAPI.Data;
 using Op_WebAPI.Models;
+using Op_WebAPI.Service;
 using System.Linq;
 
 namespace Op_WebAPI.Controllers
@@ -12,15 +14,17 @@ namespace Op_WebAPI.Controllers
     public class AttractionController : ControllerBase
     {
         private readonly DataContext _context;
-       
-        public AttractionController(DataContext context)
+        private Seed _seeder;
+
+
+        public AttractionController(DataContext context, Seed seeder)
         {
             _context = context;
-            var seed = new Seed();
-
+            _seeder = seeder;   
+     
         }
 
-        //GET : api/ Attractions/ Seed 
+        //GET : api/ Attractions/ Seed
         //[HttpGet]
         //[ActionName("Seed")]
         //[ProducesResponseType(200, Type = typeof(int))]
@@ -31,7 +35,7 @@ namespace Op_WebAPI.Controllers
         //    {
         //        int _count = int.Parse(count);
 
-        //       // int cnt = await _context.;
+        //        int cnt = await ().;
         //        return Ok(cnt);
         //    }
         //    catch (Exception ex)
@@ -40,6 +44,22 @@ namespace Op_WebAPI.Controllers
         //    }
 
         //}
+
+        //GET : api/ Attractions
+        [HttpGet]
+        [ActionName("Seed")]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult> Seed()
+        {
+
+            //Seed.SeedData(_context);
+
+            await _seeder.
+
+            return attractions;
+        }
+
+
         //GET : api/ Attractions
         [HttpGet]
         [ActionName("Read")]
@@ -47,7 +67,7 @@ namespace Op_WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractions()
         {
             
-            Seed.SeedData(_context);
+            //Seed.SeedData(_context);
 
             if (_context.SightSeeings == null) return NotFound();
 
@@ -58,7 +78,8 @@ namespace Op_WebAPI.Controllers
 
 
         //GET : api/ Attraction/ id 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [ActionName("AttractionById")]
         public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttraction(int id)
         {
             if (_context.SightSeeings == null) return NotFound();

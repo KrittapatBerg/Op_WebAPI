@@ -15,7 +15,7 @@ namespace Op_WebAPI.Models
 
         [EmailAddress]
         [MaxLength(100)]
-        public string? UserEmail { get; set; }
+        public string UserEmail { get; set; }
       
         public List<csReview> Reviews { get; set; } = new List<csReview>();
 

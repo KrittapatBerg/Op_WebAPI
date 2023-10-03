@@ -1,32 +1,34 @@
-﻿using Op_WebAPI.Models;
-using Op_WebAPI.Data;
-using Op_WebAPI.Service;
+﻿using Op_WebAPI.Data;
 
-namespace Op_WebAPI.Models
+namespace Op_WebAPI.Service
 {
     public class Seed
     {
-        private static int attractionAmount = 5;
-        private static int addressAmount = 100;
-        private static int userAmount = 50;
-        private static int reviewAmount = 100;
-        private static int ratingAmount = 150;
-       
+        private  int attractionAmount = 10;
+        private static int addressAmount = 10;
+        private static int userAmount = 5;
+        private static int reviewAmount = 5;
+
         public static void SeedData(DataContext context)
         {
             try
             {
                 //skapa en code som lägg in address och alla detaljer i varje attraction som är skapas 
-                if (context.SightSeeings.Any())
+                if (!context.SightSeeings.Any())
                 {
 
                     // Seed data
                     var attractions = RandomSeedFactory.RandomAttraction(attractionAmount);
                     var addresss = RandomSeedFactory.RandomAddress(attractionAmount);
+                    var user = RandomSeedFactory.RandomReview(attractionAmount);
                     for (int i = 0; i < attractions.Count; i++)
                     {
                         attractions[i].Address = addresss[i];
+                        //attractions[i].Review = user[i]; 
                     }
+                    //for (int i = 0;i < attractions.Count; i++)
+                    //{
+                    //}
 
                     /*
                     {
@@ -84,18 +86,6 @@ namespace Op_WebAPI.Models
                     context.SaveChanges();
                 }
 
-                if (context.Ratings.Any())
-                {
-                    var ratings = RandomSeedFactory.RandomRating(ratingAmount);
-
-                    /*{
-                        new csRating { Rating = 9, AttractionId = 2, UserId = 2 },
-                        new csRating { Rating = 10, AttractionId = 1, UserId = 1 }
-                    };*/
-
-                    context.AddRange(ratings);
-                    context.SaveChanges();
-                }
             }
             catch (Exception ex)
             {

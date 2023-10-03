@@ -87,33 +87,6 @@ namespace Op_WebAPI.Migrations
                     b.ToTable("SightSeeings");
                 });
 
-            modelBuilder.Entity("Op_WebAPI.Models.csRating", b =>
-                {
-                    b.Property<int>("RatingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RatingId"));
-
-                    b.Property<int>("AttractionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rating")
-                        .HasMaxLength(3)
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RatingId");
-
-                    b.HasIndex("AttractionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Ratings");
-                });
-
             modelBuilder.Entity("Op_WebAPI.Models.csReview", b =>
                 {
                     b.Property<int>("ReviewId")
@@ -126,7 +99,6 @@ namespace Op_WebAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Review")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -173,25 +145,6 @@ namespace Op_WebAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Attraction");
-                });
-
-            modelBuilder.Entity("Op_WebAPI.Models.csRating", b =>
-                {
-                    b.HasOne("Op_WebAPI.Models.csAttraction", "Attraction")
-                        .WithMany()
-                        .HasForeignKey("AttractionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Op_WebAPI.Models.csUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Attraction");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Op_WebAPI.Models.csReview", b =>

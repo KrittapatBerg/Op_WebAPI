@@ -11,13 +11,13 @@ namespace Op_WebAPI.Models
         public string AttractionName { get; set; } = string.Empty;
         [Required]
         [MaxLength(50)]
-        public string? Category { get; set; }
+        public string Category { get; set; }
         [Required]
         [MaxLength(200)]
         public string Description { get; set; } = string.Empty;
-        public virtual csAddress? Address { get; set; }
+        public virtual csAddress Address { get; set; }
 
-        public List<csReview>? Review { get; set; }  //new List<csReview>();     //One Attraction has a list of Review 0-20 reviews
+        public List<csReview> Review { get; set; }  //new List<csReview>();     //One Attraction has a list of Review 0-20 reviews
         //public List<csRating> Rating { get; set; } = null;     //One Attraction has a list of Rating 0-20 ratings   VG level
 
     }

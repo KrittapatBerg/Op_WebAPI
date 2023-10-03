@@ -11,23 +11,6 @@ namespace Op_WebAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    AddressId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StreetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Zipcode = table.Column<int>(type: "int", maxLength: 10, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    AttractionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.AddressId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SightSeeings",
                 columns: table => new
                 {
@@ -57,29 +40,25 @@ namespace Op_WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ratings",
+                name: "Addresses",
                 columns: table => new
                 {
-                    RatingId = table.Column<int>(type: "int", nullable: false)
+                    AddressId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Rating = table.Column<int>(type: "int", maxLength: 3, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    StreetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Zipcode = table.Column<int>(type: "int", maxLength: 10, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AttractionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ratings", x => x.RatingId);
+                    table.PrimaryKey("PK_Addresses", x => x.AddressId);
                     table.ForeignKey(
-                        name: "FK_Ratings_SightSeeings_AttractionId",
+                        name: "FK_Addresses_SightSeeings_AttractionId",
                         column: x => x.AttractionId,
                         principalTable: "SightSeeings",
                         principalColumn: "AttractionId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Ratings_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -89,9 +68,9 @@ namespace Op_WebAPI.Migrations
                 {
                     ReviewId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Review = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    AttractionId = table.Column<int>(type: "int", nullable: false)
+                    Review = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AttractionId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,14 +90,10 @@ namespace Op_WebAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ratings_AttractionId",
-                table: "Ratings",
-                column: "AttractionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ratings_UserId",
-                table: "Ratings",
-                column: "UserId");
+                name: "IX_Addresses_AttractionId",
+                table: "Addresses",
+                column: "AttractionId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_AttractionId",
@@ -136,9 +111,6 @@ namespace Op_WebAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Addresses");
-
-            migrationBuilder.DropTable(
-                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

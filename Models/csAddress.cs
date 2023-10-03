@@ -26,7 +26,7 @@ namespace Op_WebAPI.Models
 
         public int AttractionId { get; set; }
         [JsonIgnore]
-        public csAttraction? Attraction { get; set; }
+        public csAttraction Attraction { get; set; }
 
     }
 }
