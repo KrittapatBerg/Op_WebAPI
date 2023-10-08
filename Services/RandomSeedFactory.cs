@@ -46,11 +46,16 @@ namespace Op_WebAPI.Service
         {
             string[] _description =
             {
-                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ",
-                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ",
+                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. ",
+                   "Sensational place to be with family and friends.",
+                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
+                "This destination delivers a great moment to any visitors",
                 "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
-                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat ",
-                "nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ",
+                "Popular vote 10 years in a row.",
+                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat. ",
+                "One of top destinations of the country",
+                "nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui. ",
+                "Memorable and magical moment starts here...", 
                 "officia deserunt mollit anim id est laborum."
             };
 
@@ -88,7 +93,7 @@ namespace Op_WebAPI.Service
         private static string GenerateCity()
         {
             string[] _region = ("Middle, South, Central, North, Gold, Black, Green, West, East, Dark, Bright, Star, Ancient, Blue, Iron, Ion, Jade, Golden, Glow, Sparkling, New ").Split(", ");
-            string[] _city = ("Sea, Tower, Rock, Sand, Garden, Flower, Snow, Leaf, Stone, Brick, Water, Star, Storm, Ryder, Everest, Grass, Land ").Split(", ");
+            string[] _city = ("Sea, Tower, Sand, Garden, Flower, Snow, Leaf, Stone, Brick, Water, Star, Storm, Ryder, Everest, Grass, Land ").Split(", ");
 
             string seedCity = _region[random.Next(_region.Length)]  + " " + _city[random.Next(_city.Length)];
             return seedCity;
@@ -142,10 +147,10 @@ namespace Op_WebAPI.Service
         #endregion
 
         #region Review Generator
-        public static List<csReview> RandomReview(int amount)
+        public static List<csReview> RandomReview(int amount, int usercount)
         {
             var reviewList = new List<csReview>();
-            int usercount = 1;
+
             for(int i = 0; i < amount; i++)
             {
                 var result = new csReview
@@ -155,8 +160,6 @@ namespace Op_WebAPI.Service
                     AttractionId = i + 1
                 }; 
                 reviewList.Add(result);
-                if (usercount < 50) usercount++;
-                else usercount = 0;
             }
             return reviewList; 
         }

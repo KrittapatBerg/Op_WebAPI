@@ -5,9 +5,9 @@ namespace Op_WebAPI.Service
     public class Seed
     {
         private  int attractionAmount = 1000;
-        private  int addressAmount = 100;
-        private  int userAmount = 65;
-        private  int reviewAmount = 40;
+        private  int addressAmount = 1000;
+        private  int userAmount = 100;
+        private  int reviewAmount = 200;
 
         public  void SeedData(DataContext context)
         {
@@ -38,7 +38,7 @@ namespace Op_WebAPI.Service
 
                 if (!context.Reviews.Any())
                 {
-                    var reviews = RandomSeedFactory.RandomReview(reviewAmount);
+                    var reviews = RandomSeedFactory.RandomReview(reviewAmount, userAmount);
              
                     context.AddRange(reviews);
                     context.SaveChanges();

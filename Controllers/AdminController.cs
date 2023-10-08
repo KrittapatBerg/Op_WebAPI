@@ -34,7 +34,7 @@ namespace Op_WebAPI.Controllers
         }
 
         //Delete : api/ remove seed
-        [HttpGet]
+        [HttpDelete]
         [ActionName("RemoveSeed")]
         [ProducesResponseType(200)]
         public ActionResult Remove()
