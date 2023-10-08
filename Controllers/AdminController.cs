@@ -30,7 +30,7 @@ namespace Op_WebAPI.Controllers
             _context.Database.EnsureCreated();
 
             _seeder.SeedData(_context);
-            return Ok("Seeded succesfully");
+            return Ok("Succesfully seeded");
         }
 
         //Delete : api/ remove seed

@@ -50,19 +50,6 @@ namespace Op_WebAPI.Controllers
             return categorii;
         }
 
-        //GET : api/ Attraction/ Country
-        [HttpGet]
-        [ActionName("Country filter")]
-        public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractionByCountry(string country)
-        {
-            if (_context.SightSeeings == null) return NotFound();
-
-            var land = await _context.SightSeeings.Include(x => x.Address).Where(x => x.Address.Country == country).ToListAsync();
-            if (land == null) return NotFound();
-
-            return Ok(land);
-        }
-
         //GET : api/ Attraction/ City
         [HttpGet]
         [ActionName("City filter")]
@@ -71,20 +58,33 @@ namespace Op_WebAPI.Controllers
             if (_context.SightSeeings == null) return NotFound();
 
             var citii = await _context.SightSeeings.Include(c => c.Address).Where(c => c.Address.City == city).ToListAsync();
-            if (citii == null) return NotFound(); 
+            if (citii.Count < 1) return NotFound(); 
 
             return Ok(citii);
         }
 
+        //GET : api/ Attraction/ Country
+        [HttpGet]
+        [ActionName("Country filter")]
+        public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractionByCountry(string country)
+        {
+            if (_context.SightSeeings == null) return NotFound();
+
+            var land = await _context.SightSeeings.Include(x => x.Address).Where(x => x.Address.Country == country).ToListAsync();
+            if (land.Count < 1) return NotFound();
+
+            return Ok(land);
+        }
+
         //GET : api/ Attraction/ with Info  
         [HttpGet]
-        [ActionName("Attraction filter")]
+        [ActionName("Attraction filtered by Id")]
         public async Task<ActionResult<csAttraction>> GetAttractionWithReview(int id)
         {
             if (_context.SightSeeings == null) return NotFound(); 
 
             var attraction = await _context.SightSeeings.Include(x => x.Review).Where(x => x.AttractionId == id).ToListAsync();
-
+  
             return Ok(attraction); 
         }
 
@@ -101,10 +101,5 @@ namespace Op_WebAPI.Controllers
 
             return noReview;
         }
-
-
-
-
     }
-
 }
