@@ -6,7 +6,7 @@ using Op_WebAPI.Models;
 
 namespace Op_WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -18,26 +18,17 @@ namespace Op_WebAPI.Controllers
 
         //GET : api/ Users
         [HttpGet]
+        [ActionName("Users with reviews")]
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<csUser>>> GetUsers()
         {
             if (_context.Users == null) return NotFound();
-            return await _context.Users.ToListAsync();
-        }
 
-        //GET : api/ User/ id
-        [HttpGet("{id}")]
-        [ProducesResponseType(200)]
-        public async Task<ActionResult<csUser>> GetUser(int id)
-        {
-            if (_context.Users == null) return NotFound();
-            
+            var users = await _context.Users.Include(u => u.Reviews).ToListAsync();
 
-            var user = await _context.Users.Include(x => x.Reviews).Where(x => x.UserId == id).ToListAsync();
+            if(users == null) return NotFound();
 
-            if (user == null) return NotFound();
-            
-            return Ok(user); 
+            return users;
         }
     }
 }

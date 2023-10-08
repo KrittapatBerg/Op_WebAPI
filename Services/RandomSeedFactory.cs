@@ -16,13 +16,11 @@ namespace Op_WebAPI.Service
 
             for (int i = 0; i < amount; i++)
             {
-               
                 var result = new csAttraction
                 {
                     AttractionName = RandomSeedFactory.GenerateAttraction(),
                     Category = RandomSeedFactory.GenerateCategory(),
                     Description = RandomSeedFactory.GenerateDescription(),
-                    
                 };
                 attractionList.Add(result);
             }
@@ -30,21 +28,18 @@ namespace Op_WebAPI.Service
         }
         private static string GenerateAttraction()
         {
-
             string[] _attractionName = ("Sunshine, Bay, Raiya Beach, Lego, Land, Aquarium, Sea, World, Niagara, Fall, Redwood, Fancy Raw, " +
                 "Dragon, Rainbow, Miyamoto, Aspen, Highland, Dinausaur, Frozen, Beauty, Arrival, AutoBahn, Bonsai, Fuji, " +
                 "History, Unicorn, Dalai, Youth, Mystery, Downton, Jumanji, Mars, Planet, Natural, Plastic, Jam, Space, Loiter, " +
                 "Toy, Story, Sunset, Bangle, Beagle, Beatles, Lady, Statue, Curve, Science, Discovery, Animal, Wonder, Pyramid ").Split(", ");
 
-            string[] _category = ("Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Mountain, Monument, Zoo, Aquarium, Bar").Split(", ");
-
-            string seedAttract = _attractionName[random.Next(0, _attractionName.Length)] + " " + _attractionName[random.Next(0, _category.Length)];
+            string seedAttract = _attractionName[random.Next(0, _attractionName.Length)] + " " + _attractionName[random.Next(0, _attractionName.Length)];
             return seedAttract;
         }
         private static string GenerateCategory()
         {
             string[] _category = ("Park, Restaurant, Café, Museum, Architecture, Waterfall, Beach, Forest, Hotel, Zoo, Aquarium, Bar, Amusement, Mountain").Split(", ");
-            string ranCat = _category[random.Next(0, _category.Length)];
+            string ranCat = _category[random.Next(_category.Length)];
             return ranCat; 
         }
         private static string GenerateDescription()
@@ -92,8 +87,10 @@ namespace Op_WebAPI.Service
         }
         private static string GenerateCity()
         {
-            string[] _city = ("New Sea, Black Sea, Dark Sea, Bright Sea, Star Sea, Old Sea, Blue Sea, North Sea, Iron Sea, Jade Sea, Golden Sea, Glow Sea, Glitten Sea").Split(", ");
-            string seedCity = _city[random.Next(_city.Length)];
+            string[] _region = ("Middle, South, Central, North, Gold, Black, Green, West, East, Dark, Bright, Star, Ancient, Blue, Iron, Ion, Jade, Golden, Glow, Sparkling, New ").Split(", ");
+            string[] _city = ("Sea, Tower, Rock, Sand, Garden, Flower, Snow, Leaf, Stone, Brick, Water, Star, Storm, Ryder, Everest, Grass, Land ").Split(", ");
+
+            string seedCity = _region[random.Next(_region.Length)]  + " " + _city[random.Next(_city.Length)];
             return seedCity;
         }
         private static int GenerateZipcode()
@@ -103,10 +100,9 @@ namespace Op_WebAPI.Service
         }
         private static string GenerateCountry()
         {
-            string[] _region = ("High, Middle, South, Central, North, Ground, Gold, Black, Green, West, East").Split(", ");
-            string[] _country = ("Tower, Korea, King's Landing, Casterly Rock, Sea, Winterfell, Highgarden, Sea, Dothraki, Carolina, Wakanda, Cairo, Birmingham, Downton Abbey, Wimbledon, Highland Gard, Asgard, Liberty").Split(", ");
+            string[] _country = ("High Tower, King's Landing, Casterly Rock, Winterfell, Highgarden, Dothraki, Wakanda, Downton Abbey, Highland, Asgard, Liberty Land").Split(", ");
             
-            string seedCountry = _region[random.Next(0, _region.Length)] + " " + _country[random.Next(0, _region.Length)];
+            string seedCountry = _country[random.Next(0, _country.Length)];
             return seedCountry;
         }
         #endregion
@@ -122,7 +118,6 @@ namespace Op_WebAPI.Service
                 {
                     UserName = RandomSeedFactory.GenerateUserName(),
                     UserEmail = RandomSeedFactory.GenerateEmail()
-                    //connect to Review and Rating later
                 };
                 userList.Add(result);
             }
@@ -131,13 +126,13 @@ namespace Op_WebAPI.Service
 
         private static string GenerateUserName()
         {
-            string[] _userName = "Joff, Jeff, Jim, Pam, Dwight, Steve, Stanley, Kitty, Jon, Tuna, Paul, Roger, Louis, Bryan, David, Rebecca, Clerance, Edward, Catniss".Split(", ");
+            string[] _userName = ("Joff, Jeff, Jim, Pam, Dwight, Steve, Stanley, Kitty, Jon, Tuna, Paul, Roger, Louis, Bryan, David, Rebecca, Clerance, Edward, Catniss").Split(", ");
             string uniqueUserName = _userName[random.Next(0,_userName.Length)] + random.Next(1, 51);
             return uniqueUserName;
         }
         private static string GenerateEmail()
         {
-            string[] domains = { "snow.com", "flower.com", "stone.com", "tower.com", "sea.com", "scranton.com", "air.com", "sand.com", "star.com" };
+            string[] domains = {"snow.com", "flower.com", "stone.com", "tower.com", "sea.com", "scranton.com", "air.com", "sand.com", "star.com" };
             string ranDomain = domains[random.Next(domains.Length)];
             string ranName = GenerateUserName();
             string uniqueEmail = $"{ranName}@{ranDomain}";
@@ -150,16 +145,18 @@ namespace Op_WebAPI.Service
         public static List<csReview> RandomReview(int amount)
         {
             var reviewList = new List<csReview>();
-
+            int usercount = 1;
             for(int i = 0; i < amount; i++)
             {
                 var result = new csReview
                 {
-                    Review = RandomSeedFactory.GenerateReview()
-                    //connect to Attraction and User later 
+                    Review = RandomSeedFactory.GenerateReview(),
+                    UserId = random.Next(1, usercount),
+                    AttractionId = i + 1
                 }; 
-                if (random.Next(2) == 0) continue;
                 reviewList.Add(result);
+                if (usercount < 50) usercount++;
+                else usercount = 0;
             }
             return reviewList; 
         }
@@ -168,11 +165,20 @@ namespace Op_WebAPI.Service
             string[] _review =
             {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ",
-                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ",
+                "There're plenty of place like this but cheaper",
+                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ",
+                "Overhyped",
                 "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+                "Anything you expected and a little bit more.",
+                "Meh...",
+                "Worth the price.",
+                "High standard",
                 "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat ",
                 "nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ",
-                "officia deserunt mollit anim id est laborum."
+                "It was a dream",
+                "officia deserunt mollit anim id est laborum.",
+                "It was an amazing place. Check it out!",
+                "We come here regularly, highly recommend."
             };
             string ranReview = _review[random.Next(0, _review.Length)];
             

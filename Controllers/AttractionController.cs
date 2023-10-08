@@ -24,51 +24,12 @@ namespace Op_WebAPI.Controllers
      
         }
 
-        //GET : api/ Attractions/ Seed
-        //[HttpGet]
-        //[ActionName("Seed")]
-        //[ProducesResponseType(200, Type = typeof(int))]
-        //[ProducesResponseType(400, Type = typeof(string))]
-        //public async Task<IActionResult> Seed(string count)
-        //{
-        //    try
-        //    {
-        //        int _count = int.Parse(count);
-
-        //        int cnt = await ().;
-        //        return Ok(cnt);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-
-        //}
-
         //GET : api/ Attractions
         [HttpGet]
-        [ActionName("Seed")]
-        [ProducesResponseType(200)]
-        public async Task<ActionResult> Seed()
-        {
-
-            //Seed.SeedData(_context);
-
-            await _seeder.
-
-            return attractions;
-        }
-
-
-        //GET : api/ Attractions
-        [HttpGet]
-        [ActionName("Read")]
+        [ActionName("Attractions")]
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractions()
         {
-            
-            //Seed.SeedData(_context);
-
             if (_context.SightSeeings == null) return NotFound();
 
             var attractions = await _context.SightSeeings.Include(x => x.Address).ToListAsync();
@@ -76,34 +37,9 @@ namespace Op_WebAPI.Controllers
             return attractions;
         }
 
-
-        //GET : api/ Attraction/ id 
+        //GET : api/ Attraction/ Category
         [HttpGet]
-        [ActionName("AttractionById")]
-        public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttraction(int id)
-        {
-            if (_context.SightSeeings == null) return NotFound();
-
-            var attraction = await _context.SightSeeings.Include(x => x.Review).Include(x => x.Address).Where(x => x.AttractionId == id).ToListAsync();
-
-            if (attraction == null) return NotFound();
-
-            return attraction;
-        }
-
-        //GET : api/ Attraction/ no Review 
-        [HttpGet("{no review}")]
-        public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractionNoReview()
-        {
-            if (_context.SightSeeings == null) return NotFound(); 
-
-            var noReview = await _context.SightSeeings.Include(x => x.Review).Where(x => x.Review == null).ToListAsync();
-
-            return noReview; 
-        }
-
-        //GET : api/ Attraction/ category
-        [HttpGet("category/{category}")]
+        [ActionName("Category filter")]
         public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractionByCategory(string category)
         {
             if (_context.SightSeeings == null) return NotFound();
@@ -114,8 +50,9 @@ namespace Op_WebAPI.Controllers
             return categorii;
         }
 
-        //GET : api/ Attraction/ country
-        [HttpGet("country/{country}")]
+        //GET : api/ Attraction/ Country
+        [HttpGet]
+        [ActionName("Country filter")]
         public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractionByCountry(string country)
         {
             if (_context.SightSeeings == null) return NotFound();
@@ -126,17 +63,47 @@ namespace Op_WebAPI.Controllers
             return Ok(land);
         }
 
-        //GET : api/ Attraction/ city
-        [HttpGet("city/{city}")]
+        //GET : api/ Attraction/ City
+        [HttpGet]
+        [ActionName("City filter")]
         public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttractionByCity(string city)
         {
             if (_context.SightSeeings == null) return NotFound();
 
             var citii = await _context.SightSeeings.Include(c => c.Address).Where(c => c.Address.City == city).ToListAsync();
-            if (citii == null) return NotFound();
+            if (citii == null) return NotFound(); 
 
             return Ok(citii);
         }
+
+        //GET : api/ Attraction/ with Info  
+        [HttpGet]
+        [ActionName("Attraction filter")]
+        public async Task<ActionResult<csAttraction>> GetAttractionWithReview(int id)
+        {
+            if (_context.SightSeeings == null) return NotFound(); 
+
+            var attraction = await _context.SightSeeings.Include(x => x.Review).Where(x => x.AttractionId == id).ToListAsync();
+
+            return Ok(attraction); 
+        }
+
+        //GET : api/ Attraction/ no Review
+        [HttpGet]
+        [ActionName("Attraction without review")]
+        public async Task<ActionResult<IEnumerable<csAttraction>>> GetAttraction()
+        {
+            if (_context.SightSeeings == null) return NotFound();
+
+            var noReview = await _context.SightSeeings.Include(x => x.Review).Where(x => x.Review.Count == 0).ToListAsync(); 
+
+            //if (noReview == null) return NotFound();
+
+            return noReview;
+        }
+
+
+
 
     }
 

@@ -13,11 +13,11 @@ namespace Op_WebAPI.Models
         public string Review { get; set; } = string.Empty;
        
         [JsonIgnore]
-        public csAttraction Attraction { get; set; } = null;
+        public csAttraction Attraction { get; set; }
         public int AttractionId { get; set; }
         public int UserId { get; set; }
 
         [JsonIgnore]
-        public csUser User { get; set; } = null!;
+        public csUser User { get; set; } //= null!;
     }
 }
